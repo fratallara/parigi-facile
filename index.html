@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parigi Facile</title>
+<meta name="description" content="Aiuto tascabile per Parigi: frasi in francese, truffe da evitare, emergenze, ritorno in hotel.">
+<meta name="theme-color" content="#1d3557">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f7f5ef;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #555;
+    --line: #ddd8cc;
+    --blue: #1d3557;
+    --blue-soft: #e3eaf4;
+    --red: #b3121d;
+    --red-soft: #fbe5e6;
+    --amber: #8a5a00;
+    --amber-soft: #fff1d6;
+    --green: #1f6b3a;
+    --green-soft: #e1f2e6;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 20px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 5; background: var(--blue); color: #fff;
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px; min-height: 64px;
+  }
+  header h1 { font-size: 22px; margin: 0; flex: 1; }
+  .back {
+    background: rgba(255,255,255,.15); color: #fff; border: 0; border-radius: 12px;
+    font: inherit; font-size: 20px; padding: 10px 14px; min-height: 48px;
+  }
+  main { padding: 16px; max-width: 640px; margin: 0 auto 40px; }
+  h2 { font-size: 24px; margin: 24px 0 10px; }
+  h3 { font-size: 21px; margin: 0 0 6px; }
+  p { margin: 0 0 12px; }
+  a { color: var(--blue); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tile {
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 4px;
+    background: var(--card); border: 2px solid var(--line); border-radius: 18px;
+    padding: 16px; min-height: 110px; text-decoration: none; color: var(--ink); font-weight: 600;
+  }
+  .tile .ico { font-size: 34px; line-height: 1; }
+  .tile.wide { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 14px; min-height: 84px; font-size: 22px; }
+  .tile.sos { background: var(--red); border-color: var(--red); color: #fff; }
+  .tile.home { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .card {
+    background: var(--card); border: 2px solid var(--line); border-radius: 16px;
+    padding: 16px; margin: 0 0 12px;
+  }
+  .card.red { background: var(--red-soft); border-color: #f0b7bb; }
+  .card.amber { background: var(--amber-soft); border-color: #f0d49a; }
+  .card.green { background: var(--green-soft); border-color: #b5dcc1; }
+  .card.blue { background: var(--blue-soft); border-color: #bccbe0; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    min-height: 60px; padding: 12px 16px; margin: 0 0 10px; border-radius: 14px;
+    border: 2px solid var(--blue); background: var(--card); color: var(--blue);
+    font: inherit; font-weight: 700; text-decoration: none; text-align: center;
+  }
+  .btn.solid { background: var(--blue); color: #fff; }
+  .btn.red { background: var(--red); border-color: var(--red); color: #fff; }
+  .call {
+    display: flex; align-items: center; gap: 14px; background: var(--card);
+    border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 0 0 10px;
+    text-decoration: none; color: var(--ink); min-height: 72px;
+  }
+  .call .num { font-size: 30px; font-weight: 800; color: var(--red); min-width: 70px; }
+  .call b { display: block; }
+  .call small { color: var(--muted); font-size: 17px; }
+  .call.big { background: var(--red); border-color: var(--red); color: #fff; }
+  .call.big .num, .call.big small { color: #fff; }
+  .phrase {
+    display: block; width: 100%; text-align: left; background: var(--card); color: var(--ink);
+    border: 2px solid var(--line); border-radius: 14px; padding: 12px 14px; margin: 0 0 10px; font: inherit;
+  }
+  .phrase .it { color: var(--muted); font-size: 17px; }
+  .phrase .fr { font-size: 22px; font-weight: 700; display: block; }
+  .phrase .pr { color: var(--blue); font-size: 18px; font-style: italic; }
+  .list { margin: 0; padding-left: 22px; }
+  .list li { margin: 0 0 8px; }
+  .tag { display: inline-block; font-size: 15px; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin: 0 0 8px; }
+  .tag.red { background: var(--red); color: #fff; }
+  .tag.amber { background: #c98a00; color: #fff; }
+  .tag.green { background: var(--green); color: #fff; }
+  .muted { color: var(--muted); font-size: 17px; }
+  details.card summary { font-weight: 700; font-size: 21px; cursor: pointer; list-style: none; }
+  details.card summary::after { content: " ▾"; color: var(--muted); }
+  details.card[open] summary::after { content: " ▴"; }
+  details.card[open] summary { margin-bottom: 10px; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; }
+  input, textarea {
+    width: 100%; font: inherit; padding: 12px; border: 2px solid var(--line); border-radius: 12px; background: #fff;
+  }
+  textarea { min-height: 90px; }
+  .check {
+    display: flex; align-items: center; gap: 14px; background: var(--card); border: 2px solid var(--line);
+    border-radius: 14px; padding: 12px 14px; margin: 0 0 10px; font-weight: 500;
+  }
+  .check input { width: 30px; height: 30px; flex: none; }
+  table.pills { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  table.pills th { text-align: left; font-size: 17px; color: var(--muted); font-weight: 600; }
+  table.pills td { background: var(--card); padding: 8px; text-align: center; }
+  table.pills td:first-child { text-align: left; border-radius: 12px 0 0 12px; font-weight: 700; }
+  table.pills td:last-child { border-radius: 0 12px 12px 0; }
+  table.pills tr.today td { background: var(--amber-soft); }
+  table.pills input { width: 34px; height: 34px; }
+  /* schermo "mostra" a tutto schermo */
+  .show { position: fixed; inset: 0; background: #fff; z-index: 10; display: flex; flex-direction: column; padding: 20px 16px; overflow: auto; }
+  .show .big { font-size: 34px; font-weight: 800; line-height: 1.25; margin: 10px 0 16px; }
+  .show .addr { font-size: 30px; font-weight: 800; line-height: 1.3; margin: 8px 0 16px; }
+  .show .en { font-size: 22px; color: var(--muted); margin-bottom: 8px; }
+  .show .pr { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 8px; }
+  .show .it { font-size: 18px; color: var(--muted); margin-bottom: 20px; }
+  .show .spacer { flex: 1; }
+  footer { text-align: center; color: var(--muted); font-size: 15px; padding: 10px 16px 30px; }
+</style>
+</head>
+<body>
+<header>
+  <button class="back" id="back" hidden aria-label="Indietro">← Indietro</button>
+  <h1 id="title">Parigi Facile</h1>
+</header>
+<main id="app"></main>
+<footer>Informazioni verificate a ottobre 2026 · funziona anche senza internet</footer>
+
+<script>
+/* ---------- Dati fissi (pubblici: nessun dato personale qui) ---------- */
+const HOTELS = {
+  paris: {
+    name: "Hôtel Mercure Paris Montmartre Sacré-Cœur",
+    street: "3 rue Caulaincourt",
+    city: "75018 Paris",
+    tel: "+33144697070", telShow: "01 44 69 70 70",
+    metro: "Metro Place de Clichy (linee 2 e 13), 3 minuti a piedi. Oppure Blanche (linea 2), vicino al Moulin Rouge."
+  },
+  lyon: {
+    name: "Hôtel Mercure Lyon Centre Lumière",
+    street: "69 cours Albert Thomas",
+    city: "69003 Lyon",
+    tel: "+33478537676", telShow: "04 78 53 76 76",
+    metro: "Metro Sans Souci (linea D)."
+  }
+};
+
+const PHRASES = [
+  { id: "base", icon: "👋", name: "Saluti e base", items: [
+    ["Buongiorno / Salve", "Bonjour", "bonjùr", "Good morning / Hello"],
+    ["Buonasera", "Bonsoir", "bonsuàr", "Good evening"],
+    ["Grazie mille", "Merci beaucoup", "mersì bokù", "Thank you very much"],
+    ["Per favore", "S'il vous plaît", "sil vu plè", "Please"],
+    ["Mi scusi", "Excusez-moi", "escusé muà", "Excuse me"],
+    ["Sì / No", "Oui / Non", "uì / non", "Yes / No"],
+    ["Arrivederci", "Au revoir", "o revuàr", "Goodbye"],
+    ["Non parlo francese", "Je ne parle pas français", "je ne parl pa fransè", "I don't speak French"],
+    ["Siamo italiani", "Nous sommes italiens", "nu som italièn", "We are Italian"],
+    ["Parla italiano o inglese?", "Vous parlez italien ou anglais ?", "vu parlé italièn u anglè?", "Do you speak Italian or English?"],
+    ["Non ho capito", "Je n'ai pas compris", "je nè pa comprì", "I didn't understand"],
+    ["Può ripetere piano, per favore?", "Vous pouvez répéter lentement, s'il vous plaît ?", "vu puvé repeté lantmàn, sil vu plè?", "Can you repeat slowly, please?"],
+    ["Può scriverlo, per favore?", "Vous pouvez l'écrire, s'il vous plaît ?", "vu puvé lecrìr, sil vu plè?", "Can you write it down, please?"]
+  ]},
+  { id: "bar", icon: "🍽️", name: "Bar e ristorante", items: [
+    ["Un tavolo per due, per favore", "Une table pour deux, s'il vous plaît", "ün tabl pur dö, sil vu plè", "A table for two, please"],
+    ["Il menù, per favore", "La carte, s'il vous plaît", "la cart, sil vu plè", "The menu, please"],
+    ["Cosa ci consiglia?", "Qu'est-ce que vous nous conseillez ?", "kès ke vu nu consèié?", "What do you recommend?"],
+    ["Il menù del giorno", "Le menu du jour", "le menü dü jur", "The set menu of the day"],
+    ["Due caffè (espresso)", "Deux cafés, s'il vous plaît", "dö cafè, sil vu plè", "Two espressos, please"],
+    ["Un cappuccino", "Un café crème", "an cafè crèm", "A cappuccino"],
+    ["Una caraffa d'acqua (è gratis)", "Une carafe d'eau, s'il vous plaît", "ün caràf do, sil vu plè", "A jug of tap water, please"],
+    ["Acqua naturale / frizzante", "De l'eau plate / gazeuse", "de lo plat / gasös", "Still / sparkling water"],
+    ["Un bicchiere di vino rosso / bianco", "Un verre de vin rouge / blanc", "an vèr de van rug / blan", "A glass of red / white wine"],
+    ["Una birra piccola", "Un demi, s'il vous plaît", "an demì, sil vu plè", "A small beer, please"],
+    ["Senza ...", "Sans ...", "san ...", "Without ..."],
+    ["Ben cotta / al sangue (la carne)", "Bien cuite / saignante", "bièn cuìt / segnànt", "Well done / rare"],
+    ["Il conto, per favore", "L'addition, s'il vous plaît", "ladisiòn, sil vu plè", "The bill, please"],
+    ["Posso pagare con la carta?", "Je peux payer par carte ?", "je pö peié par cart?", "Can I pay by card?"],
+    ["Dov'è il bagno?", "Où sont les toilettes ?", "u son le tualèt?", "Where is the toilet?"],
+    ["Era tutto buonissimo", "C'était délicieux", "setè delisiö", "It was delicious"]
+  ]},
+  { id: "shop", icon: "🛍️", name: "Negozi", items: [
+    ["Quanto costa?", "Combien ça coûte ?", "combièn sa cut?", "How much is it?"],
+    ["Sto solo guardando, grazie", "Je regarde seulement, merci", "je regàrd sölmàn, mersì", "I'm just looking, thanks"],
+    ["Lo prendo", "Je le prends", "je le pran", "I'll take it"],
+    ["Ha una taglia più grande / più piccola?", "Vous avez une taille plus grande / plus petite ?", "vu savé ün tai plü grand / plü ptìt?", "Do you have a bigger / smaller size?"],
+    ["È troppo caro", "C'est trop cher", "sè tro scèr", "It's too expensive"],
+    ["Un sacchetto, per favore", "Un sac, s'il vous plaît", "an sac, sil vu plè", "A bag, please"],
+    ["Lo scontrino, per favore", "Le ticket de caisse, s'il vous plaît", "le tichè de chès, sil vu plè", "The receipt, please"],
+    ["A che ora chiudete?", "Vous fermez à quelle heure ?", "vu fermé a kel ör?", "What time do you close?"]
+  ]},
+  { id: "strada", icon: "🧭", name: "Strada, metro e taxi", items: [
+    ["Dov'è la metro?", "Où est le métro ?", "u è le metrò?", "Where is the metro?"],
+    ["Dov'è ...?", "Où est ... ?", "u è ...?", "Where is ...?"],
+    ["È lontano?", "C'est loin ?", "sè luàn?", "Is it far?"],
+    ["A destra / a sinistra / dritto", "À droite / à gauche / tout droit", "a druàt / a gosc / tu druà", "Right / left / straight on"],
+    ["Ci siamo persi", "Nous sommes perdus", "nu som perdü", "We are lost"],
+    ["Può mostrarmelo sulla mappa?", "Vous pouvez me montrer sur la carte ?", "vu puvé me montré sür la cart?", "Can you show me on the map?"],
+    ["Vogliamo tornare in hotel", "Nous voulons rentrer à l'hôtel", "nu vulòn rantré a lotèl", "We want to go back to the hotel"],
+    ["Una tessera Navigo Easy, per favore", "Un passe Navigo Easy, s'il vous plaît", "an pas navigò isì, sil vu plè", "A Navigo Easy card, please"],
+    ["Dieci biglietti metro, per favore", "Dix tickets métro, s'il vous plaît", "di tichè metrò, sil vu plè", "Ten metro tickets, please"],
+    ["Questa metro va a ...?", "Ce métro va à ... ?", "se metrò va a ...?", "Does this metro go to ...?"],
+    ["Dove devo scendere?", "Où est-ce que je dois descendre ?", "u ès ke je duà desàndr?", "Where should I get off?"],
+    ["Un taxi, per favore", "Un taxi, s'il vous plaît", "an taxì, sil vu plè", "A taxi, please"],
+    ["Quanto costa fino a ...?", "C'est combien jusqu'à ... ?", "sè combièn jüscà ...?", "How much is it to ...?"],
+    ["Può accendere il tassametro?", "Vous pouvez mettre le compteur ?", "vu puvé metr le contör?", "Can you turn on the meter?"]
+  ]},
+  { id: "hotel", icon: "🏨", name: "In hotel", items: [
+    ["Siamo con il gruppo Boscolo", "Nous sommes avec le groupe Boscolo", "nu som avèc le grup boscolo", "We are with the Boscolo group"],
+    ["La chiave della camera ..., per favore", "La clé de la chambre ..., s'il vous plaît", "la clé de la sciàmbr ..., sil vu plè", "The key for room ..., please"],
+    ["A che ora è la colazione?", "À quelle heure est le petit-déjeuner ?", "a kel ör è le ptì dejöné?", "What time is breakfast?"],
+    ["La password del Wi-Fi?", "Le code du wifi, s'il vous plaît ?", "le cod dü uifì, sil vu plè?", "The wifi password, please?"],
+    ["Può chiamarci un taxi?", "Vous pouvez nous appeler un taxi ?", "vu puvé nu zaplé an taxì?", "Can you call us a taxi?"],
+    ["Il riscaldamento non funziona", "Le chauffage ne marche pas", "le sciofàj ne marsc pa", "The heating doesn't work"],
+    ["Un asciugamano in più, per favore", "Une serviette en plus, s'il vous plaît", "ün servièt an plüs, sil vu plè", "An extra towel, please"],
+    ["Possiamo lasciare le valigie?", "Nous pouvons laisser nos valises ?", "nu puvòn lessé no valìs?", "Can we leave our luggage?"]
+  ]},
+  { id: "salute", icon: "💊", name: "Farmacia e salute", items: [
+    ["Non mi sento bene", "Je ne me sens pas bien", "je ne me san pa bièn", "I don't feel well"],
+    ["Ho bisogno di un medico", "J'ai besoin d'un médecin", "jè besuàn dan medsàn", "I need a doctor"],
+    ["Chiamate un'ambulanza!", "Appelez une ambulance !", "aplé ün ambülàns!", "Call an ambulance!"],
+    ["Ho mal di testa / di pancia", "J'ai mal à la tête / au ventre", "jè mal a la tèt / o vantr", "I have a headache / stomach ache"],
+    ["Ho la febbre", "J'ai de la fièvre", "jè de la fièvr", "I have a fever"],
+    ["Ho la pressione alta", "J'ai de la tension", "jè de la tansiòn", "I have high blood pressure"],
+    ["Sono allergico/a a ...", "Je suis allergique à ...", "je süì allergìc a ...", "I am allergic to ..."],
+    ["Prendo queste medicine", "Je prends ces médicaments", "je pran se medicamàn", "I take these medicines"],
+    ["Ho finito le mie pastiglie", "Je n'ai plus mes comprimés", "je nè plü me comprimè", "I ran out of my pills"],
+    ["Qualcosa per il raffreddore / la tosse", "Quelque chose contre le rhume / la toux", "kelk sciòs contr le rüm / la tu", "Something for a cold / a cough"],
+    ["Dei cerotti, per favore", "Des pansements, s'il vous plaît", "de pansmàn, sil vu plè", "Some plasters, please"]
+  ]},
+  { id: "aiuto", icon: "🆘", name: "Emergenze e difendersi", items: [
+    ["Aiuto!", "Au secours !", "o secùr!", "Help!"],
+    ["Chiamate la polizia!", "Appelez la police !", "aplé la polìs!", "Call the police!"],
+    ["Al ladro!", "Au voleur !", "o volör!", "Thief!"],
+    ["No, grazie! (deciso)", "Non, merci !", "non, mersì!", "No, thank you!"],
+    ["Lasciatemi in pace!", "Laissez-moi tranquille !", "lessé muà trankìl!", "Leave me alone!"],
+    ["Non mi tocchi!", "Ne me touchez pas !", "ne me tusciè pa!", "Don't touch me!"],
+    ["Mi hanno rubato il portafoglio", "On m'a volé mon portefeuille", "on ma volé mon portföi", "My wallet has been stolen"],
+    ["Mi hanno rubato il telefono", "On m'a volé mon téléphone", "on ma volé mon telefòn", "My phone has been stolen"],
+    ["Ho perso il mio gruppo", "J'ai perdu mon groupe", "jè perdü mon grup", "I lost my group"],
+    ["Dov'è il commissariato?", "Où est le commissariat ?", "u è le comissarià?", "Where is the police station?"],
+    ["Devo chiamare la mia famiglia", "Je dois appeler ma famille", "je duà aplé ma famìi", "I need to call my family"]
+  ]}
+];
+
+const SCAMS = [
+  { where: "Scalinata del Sacré-Cœur, Montmartre (vicino al vostro hotel!)", name: "Il braccialetto «regalo»",
+    how: "Ragazzi gentili vi fermano, vi prendono il polso o il dito e vi legano un braccialetto di fili colorati dicendo che è un regalo. Una volta legato pretendono 20–50 €, a volte in gruppo e con insistenza.",
+    todo: "Mani in tasca o braccia conserte, non fermatevi, non porgete mai la mano. Dite «Non, merci» e proseguite. Per salire al Sacré-Cœur usate la funicolare (vale il biglietto della metro) o le stradine laterali." },
+  { where: "Torre Eiffel, Trocadéro, Louvre, Notre-Dame, Champs-Élysées", name: "La petizione (finti sordomuti)",
+    how: "Ragazze con una cartellina chiedono di firmare per una causa (sordomuti, bambini, disabili). Dopo la firma chiedono una «donazione». Spesso mentre firmate un complice vi apre la borsa.",
+    todo: "Non firmate niente, non prendete la cartellina in mano. Un «Non» deciso, mano sulla borsa e continuate a camminare." },
+  { where: "Lungo la Senna, Tuileries, ponti", name: "L'anello d'oro trovato per terra",
+    how: "Qualcuno finge di trovare un anello «d'oro» proprio davanti a voi, vi chiede se è vostro e ve lo regala. Poi chiede qualche euro «per un panino». L'anello è di ottone.",
+    todo: "Non raccogliete e non accettate niente. Ignorate e andate avanti." },
+  { where: "Sotto la Torre Eiffel, ponti, Montmartre", name: "Il gioco delle tre carte / campanelle",
+    how: "Un gruppetto gioca a indovinare dove sta la pallina e qualcuno «vince» soldi facili. I vincitori sono complici. Mentre guardate incuriositi, altri vi borseggiano.",
+    todo: "Non fermatevi nemmeno a guardare. Il gioco è sempre truccato." },
+  { where: "Metro (soprattutto linee 1, 2 e 4), scale mobili, tornelli", name: "Borseggiatori in metro",
+    how: "Spesso ragazzi o ragazze giovani e ben vestiti. Vi spingono quando le porte stanno per chiudersi, vi bloccano al tornello o vi stanno troppo addosso mentre un altro apre lo zaino o prende il telefono.",
+    todo: "Zaino davanti al petto, borsa a tracolla chiusa e davanti. Telefono mai in mano vicino alle porte né in tasca dietro. State lontani dalle porte. Se la carrozza è troppo piena, aspettate la prossima (passa dopo pochi minuti)." },
+  { where: "Tavolini all'aperto di bar e ristoranti", name: "Il telefono sul tavolo",
+    how: "Qualcuno appoggia sul tavolo un foglio o una mappa per chiedere un'informazione o vendere qualcosa. Quando lo riprende, sotto c'è anche il vostro telefono.",
+    todo: "Telefono e portafoglio mai sul tavolo. La borsa sulle ginocchia o tra i piedi, non appesa alla sedia." },
+  { where: "Ovunque ci sia folla", name: "La macchia o «le è caduto qualcosa»",
+    how: "Qualcuno vi sporca la giacca (gelato, senape) o fa cadere monete davanti a voi e si offre di aiutarvi. Mentre siete distratti, vi derubano.",
+    todo: "Tenete la mano sul portafoglio, allontanatevi e pulitevi da soli in un posto tranquillo. Non fatevi toccare." },
+  { where: "Zone turistiche", name: "I finti poliziotti",
+    how: "Persone in borghese, a volte con un tesserino, chiedono di vedere il portafoglio «per controllare banconote false». Restituiscono il portafoglio, ma con meno soldi.",
+    todo: "La polizia vera non chiede mai di controllare i vostri soldi. Dite che volete andare al commissariato («Au commissariat») o chiamate il 17." },
+  { where: "Macchinette dei biglietti della metro", name: "L'«aiuto» alla macchinetta",
+    how: "Uno sconosciuto si offre di aiutarvi a comprare il biglietto. Vi vende biglietti già usati o vi guarda il PIN della carta.",
+    todo: "Rifiutate gentilmente. Andate allo sportello con il personale RATP (ha la divisa). Coprite sempre il PIN con la mano." },
+  { where: "Stazioni, fuori dai locali, Pigalle di notte", name: "I taxi abusivi",
+    how: "Uomini che vi avvicinano dicendo «Taxi? Taxi?». Non sono taxi veri e chiedono prezzi altissimi.",
+    todo: "Solo taxi con l'insegna luminosa «TAXI PARISIEN» sul tetto, presi alla fermata dei taxi o fatti chiamare dall'hotel. Il tassametro deve essere acceso. Ok anche Uber o G7 con le loro app." },
+  { where: "Pigalle e boulevard de Clichy (vicino al vostro hotel)", name: "Locali «spettacolo» con buttadentro",
+    how: "Buttadentro molto insistenti invitano a entrare per uno «spettacolo» o un drink. Il conto finale è di centinaia di euro e all'uscita c'è chi vi «convince» a pagare.",
+    todo: "Non entrate mai dove qualcuno vi tira dentro dalla strada. Il Moulin Rouge vero si prenota prima, non si entra per invito di un buttadentro." },
+  { where: "Ristoranti molto turistici", name: "Il ristorante trappola",
+    how: "Buttadentro, menù senza prezzi, «piatto del giorno» non scritto e il conto finale molto più alto del previsto.",
+    todo: "In Francia i prezzi devono essere esposti fuori: entrate solo se li vedete. Controllate il conto prima di pagare. Il servizio è già incluso («service compris»): la mancia è facoltativa." },
+  { where: "Monumenti, Montmartre, ristoranti", name: "Rose, souvenir e «regali»",
+    how: "Vi mettono in mano una rosa, un portachiavi o un piccolo oggetto «in regalo», poi pretendono soldi e non vogliono riprenderlo.",
+    todo: "Non prendete niente in mano. Se ve lo appoggiano addosso, posatelo a terra e andate via." }
+];
+
+const ZONES = [
+  { lvl: "red", label: "Evitare, soprattutto la sera", items: [
+    ["Barbès-Rochechouart e Château Rouge", "A est dell'hotel, circa 1,5 km. Molta folla, venditori abusivi, borseggi frequenti."],
+    ["La Chapelle, Stalingrad, Jaurès", "Soprattutto la sera e di notte. Spaccio e situazioni spiacevoli."],
+    ["Dintorni di Gare du Nord e Gare de l'Est", "Di giorno con attenzione, di sera evitare di passeggiare."],
+    ["Porte de la Chapelle, Saint-Denis e periferie nord", "Nessun motivo turistico per andarci."]
+  ]},
+  { lvl: "amber", label: "Belle ma con attenzione (truffe e borseggi)", items: [
+    ["Sacré-Cœur e scalinata", "Vicinissima all'hotel. Bellissima di giorno, ma è la zona del braccialetto e del gioco delle tre carte. Dopo il tramonto la scalinata è meno tranquilla."],
+    ["Pigalle e boulevard de Clichy", "Tra l'hotel e il Moulin Rouge: sexy shop, locali notturni e buttadentro. Di sera passate dritti, senza fermarvi."],
+    ["Torre Eiffel e Trocadéro", "Petizioni, tre carte, venditori, borseggiatori. Anche di giorno."],
+    ["Châtelet-Les Halles", "Stazione enorme e confusa, molti borseggi. La sera meglio evitarla."],
+    ["Champs-Élysées, Louvre, Notre-Dame", "Tranquille, ma piene di turisti e quindi di borseggiatori."]
+  ]},
+  { lvl: "green", label: "Tranquille per passeggiare", items: [
+    ["Montmartre nelle stradine interne", "Place du Tertre, rue Lepic, rue Caulaincourt (la via dell'hotel), di giorno e la prima sera."],
+    ["Le Marais, Saint-Germain, Quartiere Latino", "Vivaci e piacevoli anche la sera."],
+    ["Lungosenna, Île Saint-Louis, Giardini del Lussemburgo", "Di giorno, perfetti per passeggiare."]
+  ]}
+];
+
+const LINES_NOTE = "Linee metro con più borseggi: 1, 4 e anche la 2, che è la linea del vostro hotel (passa per Pigalle, Barbès, La Chapelle e Stalingrad). Di giorno va bene. La sera, per tornare, valutate un taxi.";
+
+const DAYS = [
+  ["2026-10-28", "Mer 28"], ["2026-10-29", "Gio 29"], ["2026-10-30", "Ven 30"],
+  ["2026-10-31", "Sab 31"], ["2026-11-01", "Dom 1"]
+];
+
+const BEFORE = [
+  "Installare questa app: in Chrome, menù ⋮ in alto a destra → «Aggiungi a schermata Home» o «Installa app»",
+  "Compilare «I miei dati» (contatti, accompagnatore Boscolo, medicine)",
+  "Google Maps: scaricare Parigi offline (foto del profilo → Mappe offline → Seleziona la tua mappa)",
+  "Google Traduttore: scaricare il francese offline (serve anche per tradurre i menù con la fotocamera)",
+  "Condividere la posizione in tempo reale con la famiglia (Google Maps o WhatsApp)",
+  "Foto di carta d'identità e tessera sanitaria sul telefono",
+  "Pastiglie per tutti i giorni + 3 giorni di scorta, nel bagaglio a mano (non nella valigia del bus)",
+  "Foto delle confezioni delle medicine (utile in farmacia)",
+  "Due sveglie sul telefono: pastiglie mattina e sera",
+  "Caricabatterie e una batteria esterna (powerbank)",
+  "Carta d'identità valida per l'espatrio, una a testa",
+  "Due carte di pagamento diverse, divise tra voi due",
+  "Salvare in rubrica il numero dell'accompagnatore Boscolo"
+];
+
+/* ---------- Utilità ---------- */
+const app = document.getElementById("app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("pf_" + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("pf_" + k, JSON.stringify(v)); } catch (e) {} }
+};
+const telHref = n => "tel:" + String(n).replace(/[^\d+]/g, "");
+const mapsDir = h => "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(h.name + ", " + h.street + ", " + h.city);
+const todayIso = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+
+function speak(text) {
+  if (!("speechSynthesis" in window)) { alert("Questo telefono non riesce a leggere ad alta voce. Mostrate lo schermo."); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/\.\.\./g, ""));
+  u.lang = "fr-FR"; u.rate = 0.85;
+  const v = speechSynthesis.getVoices().find(v => (v.lang || "").toLowerCase().startsWith("fr"));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+if ("speechSynthesis" in window) speechSynthesis.getVoices();
+
+function myData() { return store.get("me", {}); }
+function names() { const m = myData(); return [m.n1 || "Lei", m.n2 || "Lui"]; }
+function contacts() {
+  const m = myData(), out = [];
+  if (m.guideTel) out.push({ name: "Accompagnatore Boscolo" + (m.guideName ? " (" + m.guideName + ")" : ""), tel: m.guideTel });
+  [1, 2, 3].forEach(i => { if (m["c" + i + "t"]) out.push({ name: m["c" + i + "n"] || "Contatto " + i, tel: m["c" + i + "t"] }); });
+  return out;
+}
+
+/* ---------- Schermate ---------- */
+const views = {
+  "": () => ({ title: "Parigi Facile", html: `
+    <div class="grid">
+      <a class="tile wide sos" href="#/sos"><span class="ico">🆘</span>Emergenza</a>
+      <a class="tile wide home" href="#/hotel"><span class="ico">🏨</span>Torna in hotel</a>
+      <a class="tile" href="#/frasi"><span class="ico">💬</span>Frasi in francese</a>
+      <a class="tile" href="#/truffe"><span class="ico">⚠️</span>Truffe da evitare</a>
+      <a class="tile" href="#/zone"><span class="ico">📍</span>Zone e attenzione</a>
+      <a class="tile" href="#/metro"><span class="ico">🚇</span>Metro e taxi</a>
+      <a class="tile" href="#/pastiglie"><span class="ico">💊</span>Pastiglie</a>
+      <a class="tile" href="#/info"><span class="ico">ℹ️</span>Consigli pratici</a>
+      <a class="tile" href="#/prima"><span class="ico">✅</span>Prima di partire</a>
+      <a class="tile" href="#/dati"><span class="ico">👤</span>I miei dati</a>
+    </div>
+    ${contacts().length ? "" : `<div class="card amber" style="margin-top:16px"><b>Da fare una volta sola:</b> aprite <a href="#/dati">I miei dati</a> e inserite i numeri di famiglia e dell'accompagnatore.</div>`}
+  `}),
+
+  sos: () => {
+    const cs = contacts();
+    return { title: "🆘 Emergenza", html: `
+      <a class="call big" href="tel:112"><span class="num">112</span><span><b>Numero unico di emergenza</b><small>Rispondono anche in inglese. Gratuito.</small></span></a>
+      <a class="call" href="tel:15"><span class="num">15</span><span><b>Ambulanza (SAMU)</b><small>Malore, emergenza medica</small></span></a>
+      <a class="call" href="tel:17"><span class="num">17</span><span><b>Polizia</b><small>Aggressione, furto in corso</small></span></a>
+      <a class="call" href="tel:18"><span class="num">18</span><span><b>Pompieri</b><small>Incendio, incidente</small></span></a>
+      <a class="btn red" href="#/m/aiuto">📋 Mostra «Ho bisogno di aiuto»</a>
+      <h2>Famiglia e accompagnatore</h2>
+      ${cs.length ? cs.map(c => `<a class="call" href="${telHref(c.tel)}"><span class="num">📞</span><span><b>${esc(c.name)}</b><small>${esc(c.tel)}</small></span></a>`).join("")
+        : `<div class="card amber">Nessun numero salvato. <a href="#/dati">Aggiungili in «I miei dati»</a>.</div>`}
+      <h2>Consolato d'Italia a Parigi</h2>
+      <p class="muted">Solo per emergenze gravi: documenti persi o rubati, incidenti, ricoveri.</p>
+      <a class="call" href="tel:+33607227256"><span class="num">🇮🇹</span><span><b>Emergenze: sera, weekend e festivi</b><small>06 07 22 72 56 · lun–ven 18–22, festivi 8–22</small></span></a>
+      <a class="call" href="tel:+33640965100"><span class="num">🌙</span><span><b>Emergenze di notte</b><small>06 40 96 51 00 · ogni giorno 22–8</small></span></a>
+      <a class="call" href="tel:+33144304700"><span class="num">☎️</span><span><b>Centralino</b><small>01 44 30 47 00 · lun–ven 9–17<br>5 Boulevard Émile Augier, 75116</small></span></a>
+      <h2>Cosa fare se…</h2>
+      <details class="card"><summary>Ci siamo persi / ho perso il gruppo</summary>
+        <ol class="list">
+          <li>Fermatevi in un posto sicuro: un bar, un negozio, la hall di un hotel.</li>
+          <li>Chiamate l'accompagnatore Boscolo o un familiare.</li>
+          <li>Per tornare in hotel, aprite <a href="#/hotel">Torna in hotel</a> e mostrate l'indirizzo a un tassista.</li>
+          <li>Non seguite sconosciuti che si offrono di accompagnarvi.</li>
+        </ol></details>
+      <details class="card"><summary>Ci hanno derubato</summary>
+        <ol class="list">
+          <li>Prima mettetevi al sicuro. Non inseguite nessuno.</li>
+          <li>Bloccate subito le carte: chiamate il numero della vostra banca o fatevi aiutare da un familiare.</li>
+          <li>Telefono rubato: un familiare chiami il vostro operatore per bloccare la SIM.</li>
+          <li>Fate denuncia al commissariato: chiedete all'hotel il più vicino. Serve per l'assicurazione e per rifare i documenti.</li>
+          <li>Carta d'identità rubata: avvisate l'accompagnatore e il Consolato, che rilascia un documento per rientrare in Italia.</li>
+        </ol></details>
+      <details class="card"><summary>Uno di noi si sente male</summary>
+        <ol class="list">
+          <li>Se è grave chiamate il <a href="tel:15">15</a> o il <a href="tel:112">112</a>.</li>
+          <li>Mostrate <a href="#/m/aiuto">«Ho bisogno di aiuto»</a>: ci sono le medicine che prendete.</li>
+          <li>Portate sempre la tessera sanitaria: sul retro c'è la tessera europea (TEAM), valida in Francia.</li>
+          <li>Per cose leggere andate in farmacia (croce verde). Vicino all'hotel c'è una farmacia aperta giorno e notte: vedi <a href="#/info">Consigli pratici</a>.</li>
+        </ol></details>
+    `};
+  },
+
+  hotel: () => {
+    const h = HOTELS.paris, l = HOTELS.lyon;
+    return { title: "🏨 Torna in hotel", html: `
+      <div class="card blue">
+        <h3>Parigi</h3>
+        <p><b>${esc(h.name)}</b><br>${esc(h.street)}, ${esc(h.city)}</p>
+        <p class="muted">${esc(h.metro)}</p>
+      </div>
+      <a class="btn solid" href="#/m/h/paris">🚕 Mostra al tassista</a>
+      <a class="btn" href="${mapsDir(h)}" target="_blank" rel="noopener">🗺️ Portami lì con Google Maps</a>
+      <a class="btn" href="${telHref(h.tel)}">📞 Chiama l'hotel (${esc(h.telShow)})</a>
+      <h2>Lione (notte del 28)</h2>
+      <div class="card">
+        <p><b>${esc(l.name)}</b><br>${esc(l.street)}, ${esc(l.city)}</p>
+        <p class="muted">${esc(l.metro)}</p>
+      </div>
+      <a class="btn" href="#/m/h/lyon">🚕 Mostra al tassista (Lione)</a>
+      <a class="btn" href="${telHref(l.tel)}">📞 Chiama l'hotel di Lione (${esc(l.telShow)})</a>
+      <p class="muted">Consiglio: chiedete alla reception un biglietto da visita dell'hotel e tenetelo nel portafoglio.</p>
+    `};
+  },
+
+  frasi: () => ({ title: "💬 Frasi in francese", html: `
+    <div class="card blue"><p><b>Come si usa:</b> toccate una frase e si apre a tutto schermo. Potete mostrarla oppure premere 🔊 per farla leggere ad alta voce in francese.</p>
+    <p class="muted" style="margin:0">Pronuncia: <b>ü</b> = «u» con le labbra a bacio · <b>ö</b> = come il tedesco · <b>j</b> = come in «garage» · <b>n</b> finale quasi muta, nel naso</p></div>
+    <div class="card amber"><b>Il trucco più importante:</b> in Francia si dice sempre <b>«Bonjour»</b> entrando in un negozio, al bar o prima di chiedere qualcosa. Se lo dite, vi trattano molto meglio!</div>
+    ${PHRASES.map((c, i) => `<a class="tile wide" href="#/frasi/${i}" style="margin-bottom:10px;font-size:20px"><span class="ico">${c.icon}</span>${esc(c.name)}</a>`).join("")}
+  `}),
+
+  frasiCat: (i) => {
+    const c = PHRASES[i]; if (!c) return null;
+    return { title: c.icon + " " + c.name, html: c.items.map((p, j) => `
+      <a class="phrase" href="#/m/f/${i}/${j}" style="text-decoration:none">
+        <span class="it">${esc(p[0])}</span>
+        <span class="fr">${esc(p[1])}</span>
+        <span class="pr">${esc(p[2])}</span>
+      </a>`).join("") };
+  },
+
+  truffe: () => ({ title: "⚠️ Truffe da evitare", html: `
+    <div class="card red">
+      <h3>Le 6 regole d'oro</h3>
+      <ol class="list">
+        <li>Un <b>«Non, merci»</b> deciso e <b>continuate a camminare</b>. Non fermatevi, non spiegate, non siate gentili con chi vi blocca.</li>
+        <li><b>Mai</b> porgere la mano o il braccio, mai firmare niente, mai prendere in mano oggetti «in regalo».</li>
+        <li>Portafoglio e telefono nelle tasche davanti o in una borsa chiusa portata davanti. Zaino sul petto in metro.</li>
+        <li>Fuori portate pochi contanti (50–80 €) e una sola carta. Il resto nella cassaforte della camera.</li>
+        <li>Se si crea confusione intorno a voi (spinte, qualcosa che cade, una macchia), <b>mano sul portafoglio</b> e allontanatevi.</li>
+        <li>Chi è troppo gentile senza motivo, di solito vuole qualcosa.</li>
+      </ol>
+    </div>
+    <p class="muted">Toccate ogni truffa per leggere come funziona e cosa fare.</p>
+    ${SCAMS.map(s => `<details class="card"><summary>${esc(s.name)}</summary>
+      <p class="muted">📍 ${esc(s.where)}</p>
+      <p><b>Come funziona:</b> ${esc(s.how)}</p>
+      <p style="margin:0"><b>✅ Cosa fare:</b> ${esc(s.todo)}</p></details>`).join("")}
+    <a class="btn" href="#/frasi/6">💬 Frasi per difendersi</a>
+  `}),
+
+  zone: () => ({ title: "📍 Zone e attenzione", html: `
+    <div class="card blue">Il vostro hotel è in <b>rue Caulaincourt</b>, una via tranquilla di Montmartre. Intorno ci sono zone bellissime e altre da evitare: ecco come orientarsi.</div>
+    ${ZONES.map(z => `<h2><span class="tag ${z.lvl}">${z.lvl === "red" ? "EVITARE" : z.lvl === "amber" ? "ATTENZIONE" : "TRANQUILLE"}</span><br>${esc(z.label)}</h2>
+      ${z.items.map(it => `<div class="card ${z.lvl}"><h3>${esc(it[0])}</h3><p style="margin:0">${esc(it[1])}</p></div>`).join("")}`).join("")}
+    <div class="card amber"><b>🚇 Metro:</b> ${esc(LINES_NOTE)}</div>
+    <p class="muted">In generale: di sera restate nelle vie illuminate e piene di gente. Se un posto non vi piace, tornate indietro senza pensarci.</p>
+  `}),
+
+  metro: () => ({ title: "🚇 Metro e taxi", html: `
+    <div class="card amber"><b>Attenzione:</b> i biglietti di carta non esistono più. Serve la tessera <b>Navigo Easy</b>, una a testa (costa 2 € e si ricarica), oppure l'app <b>Île-de-France Mobilités</b>.</div>
+    <h2>Come prendere la metro</h2>
+    <ol class="list">
+      <li><b>Comprate la tessera Navigo Easy</b> allo sportello con il personale (più facile) o alla macchinetta. Caricatela con dei biglietti: una corsa costa 2,55 €.</li>
+      <li><b>Al tornello</b> appoggiate la tessera sul cerchio viola e passate.</li>
+      <li><b>La direzione si riconosce dal nome dell'ultima fermata.</b> Esempio: linea 2 «direction Nation» o «direction Porte Dauphine». Guardate la mappa sul binario prima di salire.</li>
+      <li><b>Cambio linea:</b> seguite i cartelli arancioni <b>«Correspondance»</b>. <b>Uscita:</b> cartelli blu <b>«Sortie»</b>.</li>
+      <li>Tenete la tessera fino all'uscita: ci possono essere controlli.</li>
+    </ol>
+    <div class="card blue"><b>Le fermate del vostro hotel</b><br>Place de Clichy (linee 2 e 13), 3 minuti a piedi.<br>Blanche (linea 2), vicino al Moulin Rouge.</div>
+    <p class="muted">La metro funziona dalle 5:30 circa all'1:15 (il venerdì e il sabato fino alle 2:15 circa).</p>
+    <h2>Funicolare di Montmartre</h2>
+    <p>Porta in cima al Sacré-Cœur senza fare la scalinata (e senza i venditori di braccialetti). Si paga con lo stesso biglietto della metro.</p>
+    <h2>Taxi</h2>
+    <ul class="list">
+      <li>Solo taxi con l'insegna <b>«TAXI PARISIEN»</b> sul tetto: luce verde = libero, rossa = occupato.</li>
+      <li>Prendeteli alle fermate dei taxi (cartello «Taxi») o fateveli chiamare dalla reception dell'hotel.</li>
+      <li>Il tassametro deve essere acceso. Si può pagare con la carta: chiedetelo prima di salire.</li>
+      <li>Alternativa comoda: app <b>Uber</b> o <b>G7</b> (taxi ufficiali), con prezzo indicato prima di partire.</li>
+      <li>Mai salire con chi vi avvicina dicendo «Taxi?».</li>
+    </ul>
+    <a class="btn solid" href="#/m/h/paris">🚕 Mostra l'indirizzo dell'hotel</a>
+    <a class="btn" href="#/frasi/3">💬 Frasi per strada e metro</a>
+  `}),
+
+  pastiglie: () => {
+    const st = store.get("pills", {}), [a, b] = names(), t = todayIso();
+    const box = (k) => `<input type="checkbox" data-pill="${k}" ${st[k] ? "checked" : ""} aria-label="${k}">`;
+    return { title: "💊 Pastiglie", html: `
+      <div class="card blue">Spuntate quando avete preso la pastiglia. La riga di oggi è evidenziata in giallo.</div>
+      <table class="pills">
+        <tr><th></th><th colspan="2">${esc(a)}</th><th colspan="2">${esc(b)}</th></tr>
+        <tr><th>Giorno</th><th>☀️</th><th>🌙</th><th>☀️</th><th>🌙</th></tr>
+        ${DAYS.map(([d, l]) => `<tr class="${d === t ? "today" : ""}"><td>${l}</td>
+          <td>${box(d + "_a_m")}</td><td>${box(d + "_a_s")}</td><td>${box(d + "_b_m")}</td><td>${box(d + "_b_s")}</td></tr>`).join("")}
+      </table>
+      <p class="muted">☀️ = mattina · 🌙 = sera. Per cambiare i nomi andate in <a href="#/dati">I miei dati</a>.</p>
+      <div class="card amber"><b>Consiglio:</b> impostate due sveglie sul telefono (Orologio → Sveglia) per mattina e sera, così non ve ne dimenticate in giro.</div>
+      <a class="btn" href="#/frasi/5">💬 Frasi per la farmacia</a>
+    `};
+  },
+
+  info: () => ({ title: "ℹ️ Consigli pratici", html: `
+    <div class="card red"><b>Domenica 1 novembre è festa (Ognissanti).</b> Molti negozi saranno chiusi e i mezzi avranno orari ridotti. È anche il giorno del rientro: preparate le valigie la sera prima.</div>
+    <details class="card" open><summary>🕐 Orari dei pasti</summary>
+      <p>Pranzo 12–14, cena dalle 19:30 alle 22. Fuori da questi orari molte cucine sono chiuse: cercate una <b>«brasserie»</b>, che serve quasi tutto il giorno.</p></details>
+    <details class="card"><summary>💧 Acqua gratis</summary>
+      <p>Al ristorante chiedete <b>«une carafe d'eau»</b>: l'acqua del rubinetto è buona e gratuita. In giro ci sono anche fontanelle pubbliche verdi.</p></details>
+    <details class="card"><summary>☕ Caffè e mance</summary>
+      <p>Il caffè al banco («au comptoir») costa meno che al tavolo. Il servizio è sempre incluso nel prezzo: la mancia è facoltativa, qualche euro se siete contenti.</p></details>
+    <details class="card"><summary>🚻 Bagni</summary>
+      <p>Sui marciapiedi ci sono bagni pubblici gratuiti grigi, le «sanisettes». Nei bar il bagno è per i clienti: prendete un caffè e chiedete «Où sont les toilettes ?».</p></details>
+    <details class="card"><summary>💳 Soldi</summary>
+      <p>La carta (anche contactless) si usa quasi ovunque. Tenete pochi contanti per piccole spese. Al bancomat preferite quelli dentro le banche e coprite il PIN.</p></details>
+    <details class="card"><summary>💊 Farmacia giorno e notte vicino all'hotel</summary>
+      <p><b>Pharmacie Européenne</b><br>6 place de Clichy, 75009 Paris, a pochi passi dall'hotel. Risulta aperta 24 ore su 24: meglio telefonare prima.</p>
+      <a class="btn" href="tel:+33148746518">📞 01 48 74 65 18</a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Pharmacie Européenne, 6 place de Clichy, 75009 Paris")}" target="_blank" rel="noopener">🗺️ Apri in Google Maps</a></details>
+    <details class="card"><summary>🏥 Tessera sanitaria</summary>
+      <p>Portatela sempre: il retro (tessera europea TEAM) vale in Francia per le cure urgenti. Per le emergenze chiamate il 15 o il 112.</p></details>
+    <details class="card"><summary>🔌 Prese e telefono</summary>
+      <p>Le spine italiane piccole e quelle tonde (Schuko) funzionano. Quelle grandi a tre poli in fila no. Il roaming in Europa è incluso: telefono e internet funzionano come in Italia. Stesso fuso orario dell'Italia.</p></details>
+    <details class="card"><summary>🌦️ Tempo a fine ottobre</summary>
+      <p>Tra 8 e 15 °C, con possibile pioggia. Ombrello pieghevole, giacca a strati e soprattutto scarpe comode: a Parigi si cammina tanto e in metro ci sono molte scale.</p></details>
+  `}),
+
+  prima: () => {
+    const st = store.get("before", {});
+    return { title: "✅ Prima di partire", html: `
+      <p class="muted">Spuntate le voci man mano. Restano salvate sul telefono.</p>
+      ${BEFORE.map((t, i) => `<label class="check"><input type="checkbox" data-before="${i}" ${st[i] ? "checked" : ""}>${esc(t)}</label>`).join("")}
+    `};
+  },
+
+  dati: () => {
+    const m = myData();
+    const f = (k, label, type = "text", ph = "") => `<label for="f_${k}">${label}</label><input id="f_${k}" data-me="${k}" type="${type}" value="${esc(m[k] || "")}" placeholder="${esc(ph)}" ${type === "tel" ? 'inputmode="tel"' : ""}>`;
+    return { title: "👤 I miei dati", html: `
+      <div class="card green">🔒 Questi dati restano <b>solo su questo telefono</b>. Non vengono inviati a nessuno. Si salvano da soli mentre scrivete.</div>
+      <h2>Nomi</h2>
+      <div class="row"><div>${f("n1", "Nome 1", "text", "es. Sonia")}</div><div>${f("n2", "Nome 2", "text", "es. Ivan")}</div></div>
+      <h2>Accompagnatore Boscolo</h2>
+      ${f("guideName", "Nome")}
+      ${f("guideTel", "Telefono", "tel", "+39 ...")}
+      <h2>Familiari da chiamare</h2>
+      ${[1, 2, 3].map(i => `<div class="card">${f("c" + i + "n", "Nome contatto " + i)}${f("c" + i + "t", "Telefono", "tel", "+39 ...")}</div>`).join("")}
+      <h2>Salute</h2>
+      <label for="f_meds">Medicine che prendete (nomi e dosi)</label>
+      <textarea id="f_meds" data-me="meds" placeholder="es. Lei: ... mattina e sera. Lui: ... mattina e sera">${esc(m.meds || "")}</textarea>
+      <label for="f_allerg">Allergie o malattie importanti</label>
+      <textarea id="f_allerg" data-me="allerg" placeholder="es. allergia alla penicillina, diabete...">${esc(m.allerg || "")}</textarea>
+      <p class="muted">Questi dati compaiono nella schermata «Ho bisogno di aiuto», da mostrare in caso di emergenza.</p>
+      <a class="btn solid" href="#/">✔ Fatto</a>
+    `};
+  }
+};
+
+/* ---------- Schermate «mostra» a tutto schermo ---------- */
+function showView(parts) {
+  if (parts[0] === "f") {
+    const c = PHRASES[+parts[1]], p = c && c.items[+parts[2]]; if (!p) return null;
+    return `<div class="it">${esc(p[0])}</div>
+      <div class="big">${esc(p[1])}</div>
+      <div class="pr">🗣️ ${esc(p[2])}</div>
+      <div class="en">🇬🇧 ${esc(p[3])}</div>
+      <div class="spacer"></div>
+      <button class="btn solid" data-speak="${esc(p[1])}">🔊 Ascolta in francese</button>`;
+  }
+  if (parts[0] === "h") {
+    const h = HOTELS[parts[1]]; if (!h) return null;
+    const fr = "Bonjour ! Emmenez-nous à cette adresse, s'il vous plaît :";
+    return `<div class="big" style="font-size:26px">${fr}</div>
+      <div class="addr">${esc(h.name)}<br>${esc(h.street)}<br>${esc(h.city)}</div>
+      <div class="en">🇬🇧 Please take us to this address.</div>
+      <div class="it">Tel. hotel: ${esc(h.telShow)}</div>
+      <div class="spacer"></div>
+      <button class="btn solid" data-speak="${esc(fr + " " + h.name + ", " + h.street + ", " + h.city)}">🔊 Leggi al tassista</button>`;
+  }
+  if (parts[0] === "aiuto") {
+    const m = myData(), cs = contacts(), h = HOTELS.paris;
+    return `<div class="big" style="color:var(--red)">J'ai besoin d'aide.</div>
+      <div class="en" style="color:var(--ink)">Je suis italien(ne), je ne parle pas français.<br>Appelez ce numéro, s'il vous plaît :</div>
+      <div class="pr" style="font-style:normal">🇬🇧 I need help. I'm Italian, I don't speak French. Please call this number:</div>
+      ${cs.length ? cs.map(c => `<a class="call" href="${telHref(c.tel)}"><span class="num">📞</span><span><b>${esc(c.name)}</b><small style="font-size:22px">${esc(c.tel)}</small></span></a>`).join("")
+        : `<div class="card amber">Nessun contatto salvato in «I miei dati».</div>`}
+      <div class="card"><b>Hôtel :</b> ${esc(h.name)}, ${esc(h.street)}, ${esc(h.city)} · ${esc(h.telShow)}</div>
+      ${m.meds ? `<div class="card"><b>Médicaments / Medicines:</b><br>${esc(m.meds)}</div>` : ""}
+      ${m.allerg ? `<div class="card red"><b>Allergies / Maladies:</b><br>${esc(m.allerg)}</div>` : ""}
+      <div class="spacer"></div>
+      <button class="btn solid" data-speak="J'ai besoin d'aide. Je suis italien, je ne parle pas français. Appelez ce numéro, s'il vous plaît.">🔊 Leggi ad alta voce</button>`;
+  }
+  return null;
+}
+
+/* ---------- Router ---------- */
+const stack = [];
+function route() {
+  const hash = location.hash.replace(/^#\/?/, "");
+  if (stack[stack.length - 2] === hash) stack.pop(); else if (stack[stack.length - 1] !== hash) stack.push(hash);
+  const parts = hash.split("/").filter(Boolean);
+  const backBtn = document.getElementById("back");
+  let v = null;
+
+  if (parts[0] === "m") {
+    const inner = showView(parts.slice(1));
+    if (inner) {
+      app.innerHTML = `<div class="show">${inner}<button class="btn" data-close>✕ Chiudi</button></div>`;
+      window.scrollTo(0, 0);
+      return;
+    }
+  } else if (parts[0] === "frasi" && parts[1] !== undefined) v = views.frasiCat(+parts[1]);
+  else if (views[parts[0] || ""]) v = views[parts[0] || ""]();
+
+  if (!v) { location.replace("#/"); return; }
+  document.getElementById("title").textContent = v.title;
+  backBtn.hidden = !parts.length;
+  app.innerHTML = v.html;
+  window.scrollTo(0, 0);
+}
+function goBack() { if (stack.length > 1) history.back(); else location.hash = "#/"; }
+document.getElementById("back").addEventListener("click", goBack);
+
+app.addEventListener("click", e => {
+  const s = e.target.closest("[data-speak]"); if (s) { speak(s.dataset.speak); return; }
+  if (e.target.closest("[data-close]")) goBack();
+});
+app.addEventListener("change", e => {
+  const t = e.target;
+  if (t.dataset.pill) { const st = store.get("pills", {}); st[t.dataset.pill] = t.checked; store.set("pills", st); }
+  if (t.dataset.before) { const st = store.get("before", {}); st[t.dataset.before] = t.checked; store.set("before", st); }
+});
+app.addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.me) { const m = myData(); m[t.dataset.me] = t.value.trim(); store.set("me", m); }
+});
+window.addEventListener("hashchange", route);
+route();
+
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
